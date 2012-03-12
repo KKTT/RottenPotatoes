@@ -8,6 +8,7 @@ class MoviesController < ApplicationController
 
   def index
 		@all_ratings=Movie.ratings
+		
 		if params[:ratings]
 			sel_rating=params[:ratings].keys
 		else
