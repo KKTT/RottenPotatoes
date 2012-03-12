@@ -26,7 +26,8 @@ class MoviesController < ApplicationController
 		else
 			 @movies = Movie.find(:all,:conditions=>{:rating =>@sel_rating})
 		end
-		
+		session[:ratings]=params[:ratings]
+		session[:sort]=params[:sort]
   end
 
   def new
@@ -36,7 +37,7 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.create!(params[:movie])
     flash[:notice] = "#{@movie.title} was successfully created."
-    redirect_to movies_path
+    redirect_to movies_path({:sort=>session[:sort],:ratings=>session[:ratings]})
   end
 
   def edit
@@ -54,7 +55,7 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
-    redirect_to movies_path
+    redirect_to movies_path({:sort=>session[:sort],:ratings=>session[:ratings]})
   end
 
 end
