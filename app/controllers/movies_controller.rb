@@ -7,17 +7,22 @@ class MoviesController < ApplicationController
   end
 
   def index
-		debugger
 		@all_ratings=Movie.ratings
+		if params[:ratings]
+			sel_rating=params[:ratings].keys
+		else
+			sel_rating=@all_ratings	
+		end
+		
 		sort=params[:sort]
 		if sort=="title"
-  		 @movies=Movie.find(:all,:order=>'title')
+  		 @movies=Movie.find(:all,:conditions=>{:rating =>sel_rating},:order=>'title')
 			 @type_title="hilite"	
-		elsif sort=="date"
-			 @movies=Movie.find(:all,:order=>'release_date')
+	  elsif sort=="date"
+			 @movies=Movie.find(:all,:conditions=>{:rating =>sel_rating},:order=>'release_date')
 			 @type_date="hilite"
 		else
-			 @movies = Movie.all
+			 @movies = Movie.find(:all,:conditions=>{:rating =>sel_rating})
 		end
 		
   end
