@@ -7,7 +7,8 @@ class MoviesController < ApplicationController
   end
 
   def index
-		
+		debugger
+		@all_ratings=Movie.ratings
 		sort=params[:sort]
 		if sort=="title"
   		 @movies=Movie.find(:all,:order=>'title')
