@@ -8,22 +8,23 @@ class MoviesController < ApplicationController
 
   def index
 		@all_ratings=Movie.ratings
+	
 		
 		if params[:ratings]
-			sel_rating=params[:ratings].keys
+			@sel_rating=params[:ratings].keys
 		else
-			sel_rating=@all_ratings	
+			@sel_rating=@all_ratings	
 		end
 		
 		sort=params[:sort]
 		if sort=="title"
-  		 @movies=Movie.find(:all,:conditions=>{:rating =>sel_rating},:order=>'title')
+  		 @movies=Movie.find(:all,:conditions=>{:rating =>@sel_rating},:order=>'title')
 			 @type_title="hilite"	
 	  elsif sort=="date"
-			 @movies=Movie.find(:all,:conditions=>{:rating =>sel_rating},:order=>'release_date')
+			 @movies=Movie.find(:all,:conditions=>{:rating =>@sel_rating},:order=>'release_date')
 			 @type_date="hilite"
 		else
-			 @movies = Movie.find(:all,:conditions=>{:rating =>sel_rating})
+			 @movies = Movie.find(:all,:conditions=>{:rating =>@sel_rating})
 		end
 		
   end

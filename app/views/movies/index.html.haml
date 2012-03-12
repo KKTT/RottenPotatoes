@@ -5,8 +5,8 @@
   Include: 
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]"
-  = submit_tag 'Refresh'
+    = check_box_tag "ratings[#{rating}]", 1, @sel_rating.include?(rating)
+  = submit_tag 'Refresh', :id=>"ratings_submit"
 
 
 %table#movies
@@ -24,4 +24,5 @@
         %td= movie.release_date
         %td= link_to "More about #{movie.title}", movie_path(movie)
 -#=params.inspect
+-#=@sel_rating.inspect
 = link_to 'Add new movie', new_movie_path
