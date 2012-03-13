@@ -7,6 +7,12 @@ class MoviesController < ApplicationController
   end
 
   def index
+		if (params[:sort]==nil && params[:ratings]==nil && (session[:sort] || session[:ratings]))
+			params[:sort]=session[:sort] 
+			params[:ratings]=session[:ratings] 
+			redirect_to movies_path({:sort=>params[:sort],:ratings=>params[:ratings]})
+		end
+		
 		@all_ratings=Movie.ratings
 	
 		
@@ -37,7 +43,7 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.create!(params[:movie])
     flash[:notice] = "#{@movie.title} was successfully created."
-    redirect_to movies_path({:sort=>session[:sort],:ratings=>session[:ratings]})
+    redirect_to movies_path
   end
 
   def edit
@@ -55,7 +61,7 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
-    redirect_to movies_path({:sort=>session[:sort],:ratings=>session[:ratings]})
+    redirect_to movies_path
   end
 
 end

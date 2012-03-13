@@ -23,7 +23,7 @@
         %td= movie.rating
         %td= movie.release_date
         %td= link_to "More about #{movie.title}", movie_path(movie)
--#%br=params.inspect 
--#%br=session.inspect 
+%br=params.inspect 
+%br=session.inspect 
 -#=@sel_rating.inspect
 = link_to 'Add new movie', new_movie_path
